@@ -10,11 +10,11 @@ public class Account {
 
     }
     //overloaded constructor
-    public Account(int acNo, String uname, String pin, float balance) {
+    public Account (int acNo, String pin) {
         this.accountNo = acNo;
-        this.username = uname;
+       // this.username = uname;
         this.pin = pin;
-        this.balance = balance;
+       // this.balance = balance;
     }
 
     //Define getters and setters for class members
@@ -36,14 +36,20 @@ public class Account {
     public String getPin() {
         return this.pin;
     }
-    public void setBalance(int balance) {
+    public void setBalance(float balance) {
+        System.out.println("Setting balnace "+balance);
         this.balance = balance;
+        System.out.println("Setting balnace "+this.balance);
     }
     public float getBalance() {
         return this.balance;
     }
-    public void makeDeposit(int depositAmount) {
+    public String makeDeposit(float depositAmount) {
+        System.out.println("current depost " +this.balance);
         this.balance += depositAmount;
+        String s = "The balance is " +this.balance;
+        return s;
+
 
     }
     public String makeWithdrawal(float amount) {
