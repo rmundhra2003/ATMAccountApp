@@ -111,20 +111,10 @@ public class Account {
     }
     public boolean findAccount(int acNo, String value) {
         boolean found = false;
-        Account ac1 = null;
 
-        Set set2 = accountHashMap.entrySet();
-        Iterator iterator2 = set2.iterator();
-
-        while (iterator2.hasNext()) {
-            Map.Entry mentry2 = (Map.Entry) iterator2.next();
-            acNo = (int)mentry2.getKey();
-            ac1 = (Account) mentry2.getValue();
-            if(ac1.validateAccount(acNo,value )) {
-                //Found account
-                found = true;
-                break;
-            }
+        Account a = accountHashMap.get(acNo);
+        if(a != null && a.getPin().equalsIgnoreCase(value)) {
+            found = true;
         }
         return found;
     }
