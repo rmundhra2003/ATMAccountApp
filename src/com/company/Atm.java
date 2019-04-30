@@ -123,6 +123,8 @@ public class Atm extends Account{
                 System.out.println("Invalid input\n");
             }
         }
+        //Write the updated accounts to file
+        writeAccountsToFile();
     }
 
 }
