@@ -1,5 +1,10 @@
 package com.company;
 
+/*
+    Account class - contains the account number, user name, balance,PIN. Deposits and withdraws updates the balance
+    This class hardcoded three account numbers with user name, balance and PIN information.
+    The ATM class does not know any information about the Account class.
+ */
 import java.util.ArrayList;
 
 public class Account {
@@ -40,9 +45,7 @@ public class Account {
         return this.pin;
     }
     public void setBalance(float balance) {
-        System.out.println("Setting balnace "+balance);
         this.balance = balance;
-        System.out.println("Setting balnace "+this.balance);
     }
     public float getBalance() {
         return this.balance;
@@ -71,32 +74,27 @@ public class Account {
         String s = "";
         for (Account a : accountList) {
             if (a.validateAccount(acNo, value)) {
-                System.out.println("current depost " +a.balance);
                 a.balance += depositAmount;
                 s = "The balance is " +a.balance;
-                //found = true;
                 break;
             }
         }
-
         return s;
-
-
     }
     public String makeWithdrawal(int acNo, String value, float amount) {
         String s = "";
         for (Account a : accountList) {
             if (a.validateAccount(acNo, value)) {
-                System.out.println("current depost " +a.balance);
-                if(a.balance >= amount)
-                a.balance -= amount;
-                s = "The balance is " +a.balance;
-                break;
+                if(a.balance >= amount) {
+                    a.balance -= amount;
+                    s = "The balance is " + a.balance;
+                    break;
+                }else {
+                    s = "Insufficient funds to  process transaction balance is $" +a.balance;
+                    break;
+                }
             }
-            else {
-                s = "Insufficient funds to  process transaction\n";
-                break;
-            }
+
         }
         return s;
     }
