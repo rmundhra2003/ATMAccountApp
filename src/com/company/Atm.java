@@ -26,6 +26,7 @@ public class Atm extends Account{
     public Atm(int ac, String pin) {
          super.setAccountno(ac);
          super.setPin(pin);
+         //Calls parent class Account to load information
          loadAccounts();
     }
 
