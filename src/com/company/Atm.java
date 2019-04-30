@@ -9,21 +9,25 @@ public class Atm extends Account{
 
 
     public Atm(int ac, String pin) {
-         super(ac, pin);
+
+         super.setAccountno(ac);
+         super.setPin(pin);
+         loadAccounts();
     }
 
     public Atm (){
+        loadAccounts();
         System.out.println("Bank Account");
 
     }
 
    // @Override
-    public void makeDepositAtm() {
+    public void makeDepositAtm(int acNo, String value) {
         System.out.print("In makeDeposit\n");
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Enter the deposit amount in $ ");
         float depositAmount = keyboard.nextFloat();
-        System.out.println("" +super.makeDeposit(depositAmount));
+        System.out.println("" +super.makeDeposit(acNo, value, depositAmount));
     }
 
     @Override
@@ -56,25 +60,38 @@ public class Atm extends Account{
         hashMap.put((Integer)acNo, pin);
         return hashMap;
     }
-    public  void AtmOperation() {
+    public  void AtmOperation(int acNo, String value) {
+        boolean input = true;
         Scanner keyboard = new Scanner(System.in);
-        ArrayList<String> operationAry = new ArrayList<String>();
-        //String s = new String("deposit");
-        operationAry.add("deposit");
-        operationAry.add("withdraw");
-        operationAry.add("balance");
-        operationAry.add("display");
 
-        System.out.print("Enter the operation: deposit/withdrawal/balance/display account info" );
-        String s = keyboard.nextLine();
-
-        if(s.equalsIgnoreCase("deposit")) {
-            makeDepositAtm();
+        if(!super.findAccount(acNo,value)) {
+            System.out.println("Invalid account no/pin");
+            return;
         }
 
-
-        //System.out.print("What is t")
-
+        while(input) {
+            System.out.print("Enter the operation: deposit/withdraw/balance/display/exit: " );
+            String s = keyboard.nextLine();
+            if (s.equalsIgnoreCase("deposit")) {
+                System.out.print("Enter the deposit amount in $ ");
+                float depositAmount = keyboard.nextFloat();
+                System.out.println("" + super.makeDeposit(acNo, value, depositAmount));
+            } else if (s.equalsIgnoreCase("withdraw")) {
+                System.out.print("Enter the withdrawal amount in $ ");
+                float wAmount = keyboard.nextFloat();
+                System.out.println("" + super.makeWithdrawal(acNo, value, wAmount));
+            } else if (s.equalsIgnoreCase("balance")) {
+                System.out.println("" + super.checkBalance(acNo, value));
+            } else if (s.equalsIgnoreCase("display")) {
+                System.out.println("" + super.displayAcctInfo(acNo, value));
+            }
+            else if (s.equalsIgnoreCase("exit")) {
+                input = false;
+            }
+            else {
+                System.out.println("Invalid input\n");
+            }
+        }
     }
 
 }

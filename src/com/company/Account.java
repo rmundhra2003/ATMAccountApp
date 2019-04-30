@@ -1,20 +1,23 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Account {
     private int accountNo;
     private String username;
     private String pin;
     private float balance;
+    private ArrayList<Account> accountList;
 
     public Account() {
 
     }
     //overloaded constructor
-    public Account (int acNo, String pin) {
+    public Account (int acNo, String pin, String uname, float balance) {
         this.accountNo = acNo;
-       // this.username = uname;
+        this.username = uname;
         this.pin = pin;
-       // this.balance = balance;
+        this.balance = balance;
     }
 
     //Define getters and setters for class members
@@ -44,32 +47,84 @@ public class Account {
     public float getBalance() {
         return this.balance;
     }
-    public String makeDeposit(float depositAmount) {
-        System.out.println("current depost " +this.balance);
-        this.balance += depositAmount;
-        String s = "The balance is " +this.balance;
+    public String checkBalance(int acNo, String value) {
+        String s = "";
+        for (Account a : accountList) {
+            if (a.validateAccount(acNo, value)) {
+                s = "Current balance for account# "+ a.accountNo +" is " +a.balance;
+                break;
+            }
+        }
+        return s;
+    }
+    public String displayAcctInfo(int acNo, String value) {
+        String s = "";
+        for (Account a : accountList) {
+            if (a.validateAccount(acNo, value)) {
+                s = "Current balance for account# "+ a.accountNo +" for  "+a.username +" is: $"  +a.balance;
+                break;
+            }
+        }
+        return s;
+    }
+    public String makeDeposit(int acNo, String value, float depositAmount) {
+        String s = "";
+        for (Account a : accountList) {
+            if (a.validateAccount(acNo, value)) {
+                System.out.println("current depost " +a.balance);
+                a.balance += depositAmount;
+                s = "The balance is " +a.balance;
+                //found = true;
+                break;
+            }
+        }
+
         return s;
 
 
     }
-    public String makeWithdrawal(float amount) {
-        String msg;
-        if(amount <= this.balance) {
-            this.balance -= amount;
-            msg = ""+amount +"has been withdrawn and balance is "+this.balance;
+    public String makeWithdrawal(int acNo, String value, float amount) {
+        String s = "";
+        for (Account a : accountList) {
+            if (a.validateAccount(acNo, value)) {
+                System.out.println("current depost " +a.balance);
+                if(a.balance >= amount)
+                a.balance -= amount;
+                s = "The balance is " +a.balance;
+                break;
+            }
+            else {
+                s = "Insufficient funds to  process transaction\n";
+                break;
+            }
         }
-        else {
-            msg = "Insufficient funds to process transaction";
-        }
-        return msg;
+        return s;
     }
-    public String checkBalance() {
-        return ("Account " +this.accountNo +" balance is " + this.balance);
-    }
+
     public boolean validateAccount( int accountNo, String pin) {
         boolean result = false;
-        if(this.accountNo == accountNo && this.pin == pin)
+        if(this.accountNo == accountNo && this.pin.equalsIgnoreCase(pin))
             result = true;
         return result;
+    }
+    public void loadAccounts() {
+        // write your code here
+        accountList = new ArrayList<Account>();
+        Account ac1 = new Account(12345, "0526", "Yasmin", 25000);
+        accountList.add(ac1);
+        Account ac2 = new Account(12346, "0527", "Zeru", 35000);
+        accountList.add(ac2);
+        Account ac3 = new Account(12347, "0528", "Rekha", 45000);
+        accountList.add(ac3);
+    }
+    public boolean findAccount(int acNo, String value) {
+        boolean found = false;
+        for (Account a : accountList) {
+            if (a.validateAccount(acNo, value)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
     }
 }
