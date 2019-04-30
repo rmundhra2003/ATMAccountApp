@@ -4,6 +4,9 @@ package com.company;
     Account class - contains the account number, user name, balance,PIN. Deposits and withdraws updates the balance
     This class hardcoded three account numbers with user name, balance and PIN information.
     The ATM class does not know any information about the Account class.
+
+    Updated code to read account information from file "accounts.txt" and after all ATM operations are done write output
+    to "accounts.txt'
  */
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
