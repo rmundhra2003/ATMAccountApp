@@ -114,46 +114,7 @@ public class Account {
     public void loadAccounts() {
         // write your code here
             readAccountsFromFile();
-//        String filename = (System.getProperty("user.dir")+ File.separatorChar+"accounts.txt");
-//        System.out.println(filename);
-//
-//        PrintWriter writer = null;
-//        try {
-//            writer = new PrintWriter(new File(filename));
-//        }catch (FileNotFoundException e) {
-//            System.out.println("File does not exist!");
-//        }
-//        accountList = new ArrayList<Account>();
-//        Account ac1 = new Account(12345, "0526", "Yasmin", 25000);
-//        accountList.add(ac1);
-//        Account ac2 = new Account(12346, "0527", "Zeru", 35000);
-//        accountList.add(ac2);
-//        Account ac3 = new Account(12347, "0528", "Rekha", 45000);
-//        accountList.add(ac3);
-//
-//        //Writing to file
-//        for(Account acct:accountList) {
-//            System.out.println("write this line: ");
-//            writer.println(acct.getAccountNo() +" "+acct.getPin() +" " +acct.getUsername() +" " +acct.getBalance());
-//        }
-//        writer.close();
-//
-//        //Read the file
-//        System.out.println("Read from the file");
-//        BufferedReader reader = null;
-//        try {
-//            reader = new BufferedReader(new FileReader(filename));
-//            String line = reader.readLine();
-//            while(line != null) {
-//                String[]acctStringAry = line.split(" ");
-//                System.out.println(""+acctStringAry[0] +" " +acctStringAry[1] +" " +acctStringAry[2] +" "
-//                        +acctStringAry[3]);
-//                line = reader.readLine();
-//            }
-//            reader.close();
-//        } catch (IOException e) {
-//            System.out.println("File does not exist!");
-//        }
+
     }
     public boolean findAccount(int acNo, String value) {
         boolean found = false;
