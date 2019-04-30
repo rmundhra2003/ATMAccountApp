@@ -56,9 +56,10 @@ public class Account {
     public float getBalance() {
         return this.balance;
     }
+    //@ checkBalance for account
     public String checkBalance(int acNo, String value) {
         String s = "";
-        Account a = findAccountAndReturn(acNo, value);
+        Account a = accountHashMap.get(acNo);
         if(a != null)
             s = "Current balance for account# "+ a.accountNo +" is " +a.balance;
         else
@@ -68,7 +69,7 @@ public class Account {
     }
     public String displayAcctInfo(int acNo, String value) {
         String s = "";
-        Account a = findAccountAndReturn(acNo, value);
+        Account a = accountHashMap.get(acNo);
         if(a != null) {
             s = "Current balance for account# "+ a.accountNo +" for  "+a.username +" is: $"  +a.balance;
         }
@@ -76,7 +77,7 @@ public class Account {
     }
     public String makeDeposit(int acNo, String value, float depositAmount) {
         String s = "";
-        Account a = findAccountAndReturn(acNo, value);
+        Account a = accountHashMap.get(acNo);
         if(a != null) {
             a.balance += depositAmount;
             s = "The balance is " +a.balance;
@@ -85,7 +86,7 @@ public class Account {
     }
     public String makeWithdrawal(int acNo, String value, float amount) {
         String s = "";
-        Account a = findAccountAndReturn(acNo, value);
+        Account a = accountHashMap.get(acNo);
         if(a != null) {
             if (a.balance >= amount) {
                 a.balance -= amount;
@@ -126,24 +127,6 @@ public class Account {
             }
         }
         return found;
-    }
-    //@Overloaded method
-    public Account findAccountAndReturn(int acNo, String value) {
-        Account ac1 = null;
-
-        Set set2 = accountHashMap.entrySet();
-        Iterator iterator2 = set2.iterator();
-
-        while (iterator2.hasNext()) {
-            Map.Entry mentry2 = (Map.Entry) iterator2.next();
-            acNo = (int)mentry2.getKey();
-            ac1 = (Account) mentry2.getValue();
-            if(ac1.validateAccount(acNo,value )) {
-                //Found account
-                break;
-            }
-        }
-        return ac1;
     }
 
     public void readAccountsFromFile() {
